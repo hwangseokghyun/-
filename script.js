@@ -1,10 +1,3 @@
-const container = document.getElementById('lottoNumbers');
-const generateButton = document.getElementById('generateButton');
-const resetButton = document.getElementById('resetButton');
-const copyButton = document.getElementById('copyButton');
-
-let lastNumbers = [];
-
 function generateLottoNumbers() {
   const numbers = new Set();
   while (numbers.size < 6) {
@@ -12,20 +5,46 @@ function generateLottoNumbers() {
   }
 
   const sorted = Array.from(numbers).sort((a, b) => a - b);
-  lastNumbers = sorted;
 
+  displayLottoRow(sorted);
+  saveToLocalStorage(sorted);
+}
+
+function displayLottoRow(numbers) {
   const row = document.createElement('div');
-  row.classList.add('row');
+  row.className = 'row';
 
-  sorted.forEach(number => {
+  numbers.forEach(num => {
     const ball = document.createElement('div');
-    ball.className = 'ball ' + getColorClass(number);
-    ball.innerText = number;
+    ball.className = `ball ${getColorClass(num)}`;
+    ball.textContent = num;
     row.appendChild(ball);
   });
 
+  const container = document.getElementById('lottoNumbers');
   container.appendChild(row);
-  saveToLocal();
+}
+
+function clearLottoNumbers() {
+  document.getElementById('lottoNumbers').innerHTML = '';
+  localStorage.removeItem('savedLottoNumbers');
+}
+
+function copyLastRow() {
+  const rows = document.querySelectorAll('.row');
+  if (rows.length === 0) {
+    alert("복사할 번호가 없습니다!");
+    return;
+  }
+
+  const lastRow = rows[rows.length - 1];
+  const numbers = Array.from(lastRow.children)
+                       .map(ball => ball.textContent)
+                       .join(', ');
+
+  navigator.clipboard.writeText(numbers).then(() => {
+    alert(`복사 완료! 🎉\n${numbers}`);
+  });
 }
 
 function getColorClass(number) {
@@ -36,24 +55,21 @@ function getColorClass(number) {
   return 'green';
 }
 
-function resetLottoNumbers() {
-  container.innerHTML = '';
-  lastNumbers = [];
-  localStorage.removeItem('lottoHistory');
+function saveToLocalStorage(newNumbers) {
+  const saved = JSON.parse(localStorage.getItem('savedLottoNumbers')) || [];
+  saved.push(newNumbers);
+  localStorage.setItem('savedLottoNumbers', JSON.stringify(saved));
 }
 
-function copyLastNumbers() {
-  if (lastNumbers.length === 0) return alert("복사할 번호가 없어요!");
-  navigator.clipboard.writeText(lastNumbers.join(', '));
-  alert("복사 완료! 🎉");
+function loadFromLocalStorage() {
+  const saved = JSON.parse(localStorage.getItem('savedLottoNumbers'));
+  if (saved && Array.isArray(saved)) {
+    saved.forEach(row => {
+      displayLottoRow(row);
+    });
+  }
 }
 
-function saveToLocal() {
-  let history = JSON.parse(localStorage.getItem('lottoHistory')) || [];
-  history.push(lastNumbers);
-  localStorage.setItem('lottoHistory', JSON.stringify(history));
-}
-
-generateButton.addEventListener('click', generateLottoNumbers);
-resetButton.addEventListener('click', resetLottoNumbers);
-copyButton.addEventListener('click', copyLastNumbers);
+window.onload = function () {
+  loadFromLocalStorage();
+};
