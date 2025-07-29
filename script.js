@@ -38,18 +38,25 @@ function copyLastRow() {
   }
 
   const lastRow = rows[rows.length - 1];
-  const numbers = Array.from(lastRow.querySelectorAll('.ball'))  // 클래스명 .ball로 명확히 지정
+  const balls = lastRow.querySelectorAll('.ball');
+
+  if (balls.length === 0) {
+    alert("복사할 숫자가 없습니다! ('.ball' 클래스가 있는지 확인해주세요)");
+    return;
+  }
+
+  const numbers = Array.from(balls)
     .map(ball => ball.textContent.trim())
     .join(', ');
 
-  // 복사 기능
   navigator.clipboard.writeText(numbers).then(() => {
     alert(`복사 완료! 🎉\n${numbers}`);
   }).catch(err => {
-    console.error('복사 실패:', err);
-    alert("복사에 실패했어요. 브라우저 권한 설정을 확인해주세요.");
+    console.error("복사 실패:", err);
+    alert("복사에 실패했습니다. 브라우저 권한을 확인하세요.");
   });
 }
+
 
 
 function getColorClass(number) {
