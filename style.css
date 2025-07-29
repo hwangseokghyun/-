@@ -1,48 +1,91 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f7fa;
   text-align: center;
-  padding: 20px;
   margin: 0;
-  background-color: #f5f5f5;
+  padding: 0;
 }
 
 .container {
   max-width: 600px;
-  margin: auto;
+  margin: 100px auto;
+  padding: 40px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 16px;
 }
 
 h1 {
   font-size: 28px;
   margin-bottom: 10px;
+  color: #222;
 }
 
 p {
-  font-size: 18px;
+  font-size: 16px;
+  margin-bottom: 24px;
+  color: #555;
+}
+
+.lotto-link {
+  display: inline-block;
   margin-bottom: 20px;
+  font-size: 15px;
+  background-color: #ff9800;
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
-.button-group-horizontal button {
-  margin: 5px;
+.lotto-link:hover {
+  background-color: #e68900;
 }
 
-.main-btn.large {
-  font-size: 18px;
-  padding: 10px 20px;
-  background-color: #4CAF50;
+.button-group-horizontal {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.main-btn {
+  background-color: #4a90e2;
   color: white;
   border: none;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  text-align: center;
 }
 
-.gray-btn.tiny {
-  font-size: 14px;
-  padding: 8px 14px;
-  background-color: #ccc;
+.main-btn:hover {
+  background-color: #357abd;
+}
+
+.large {
+  font-size: 20px;
+  padding: 18px 36px;
+}
+
+.gray-btn {
+  background-color: #e0e0e0;
   color: #333;
   border: none;
+  border-radius: 8px;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 5px;
+}
+
+.gray-btn:hover {
+  background-color: #ccc;
+}
+
+.tiny {
+  font-size: 12px;
+  padding: 8px 14px;
 }
 
 .lotto-container {
@@ -50,37 +93,86 @@ p {
 }
 
 .row {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .ball {
-  width: 40px;
-  height: 40px;
+  display: inline-block;
+  margin: 6px;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
   border-radius: 50%;
   color: white;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 5px;
+  font-size: 18px;
 }
 
 .yellow { background-color: #fbc02d; }
 .blue   { background-color: #1976d2; }
 .red    { background-color: #e53935; }
-.black  { background-color: #424242; }
-.green  { background-color: #388e3c; }
+.black  { background-color: #333; }
+.green  { background-color: #43a047; }
 
 .coupang-banner {
-  margin: 15px 0;
+  margin-top: 40px;
+  text-align: center;
 }
 
-.lotto-link {
-  display: inline-block;
-  margin-bottom: 20px;
-  text-decoration: none;
-  font-size: 16px;
-  color: #0073e6;
+.top-banner {
+  margin-bottom: 24px;
+}
+
+.coupang-banner img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* 📱 모바일 최적화 */
+@media screen and (max-width: 480px) {
+  .container {
+    margin: 40px 16px;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .button-group-horizontal {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .main-btn.large {
+    font-size: 18px;
+    padding: 14px 24px;
+  }
+
+  .gray-btn.tiny {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  .ball {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin: 4px;
+  }
+
+  .lotto-link {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .coupang-banner img {
+    border-radius: 8px;
+  }
 }
