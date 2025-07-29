@@ -5,25 +5,23 @@ function generateLottoNumbers() {
   }
 
   const sorted = Array.from(numbers).sort((a, b) => a - b);
-  displayLottoRow(sorted);
-  saveToLocalStorage(sorted);
-}
 
-function displayLottoRow(numbers) {
   const row = document.createElement('div');
   row.className = 'row';
-  numbers.forEach(num => {
+
+  sorted.forEach(num => {
     const ball = document.createElement('div');
     ball.className = `ball ${getColorClass(num)}`;
     ball.textContent = num;
     row.appendChild(ball);
   });
-  document.getElementById('lottoNumbers').appendChild(row);
+
+  const container = document.getElementById('lottoNumbers');
+  container.appendChild(row);
 }
 
 function clearLottoNumbers() {
   document.getElementById('lottoNumbers').innerHTML = '';
-  localStorage.removeItem('savedLottoNumbers');
 }
 
 function copyLastRow() {
@@ -32,8 +30,12 @@ function copyLastRow() {
     alert("복사할 번호가 없습니다!");
     return;
   }
+
   const lastRow = rows[rows.length - 1];
-  const numbers = Array.from(lastRow.children).map(ball => ball.textContent).join(', ');
+  const numbers = Array.from(lastRow.children)
+                       .map(ball => ball.textContent)
+                       .join(', ');
+
   navigator.clipboard.writeText(numbers).then(() => {
     alert(`복사 완료! 🎉\n${numbers}`);
   });
@@ -46,22 +48,3 @@ function getColorClass(number) {
   if (number <= 40) return 'black';
   return 'green';
 }
-
-function saveToLocalStorage(newNumbers) {
-  const saved = JSON.parse(localStorage.getItem('savedLottoNumbers')) || [];
-  saved.push(newNumbers);
-  localStorage.setItem('savedLottoNumbers', JSON.stringify(saved));
-}
-
-function loadFromLocalStorage() {
-  const saved = JSON.parse(localStorage.getItem('savedLottoNumbers'));
-  if (saved && Array.isArray(saved)) {
-    saved.forEach(row => {
-      displayLottoRow(row);
-    });
-  }
-}
-
-window.onload = function () {
-  loadFromLocalStorage();
-};
