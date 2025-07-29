@@ -5,7 +5,6 @@ function generateLottoNumbers() {
   }
 
   const sorted = Array.from(numbers).sort((a, b) => a - b);
-
   displayLottoRow(sorted);
   saveToLocalStorage(sorted);
 }
@@ -16,7 +15,7 @@ function displayLottoRow(numbers) {
 
   numbers.forEach(num => {
     const ball = document.createElement('div');
-    ball.className = `ball ${getColorClass(num)}`;
+    ball.className = \`ball \${getColorClass(num)}\`;
     ball.textContent = num;
     row.appendChild(ball);
   });
@@ -50,7 +49,7 @@ function copyLastRow() {
     .join(', ');
 
   navigator.clipboard.writeText(numbers).then(() => {
-    alert(`복사 완료! 🎉\n${numbers}`);
+    alert(\`복사 완료! 🎉\n\${numbers}\`);
   }).catch(err => {
     console.error("복사 실패:", err);
     alert("복사에 실패했습니다. 브라우저 권한을 확인하세요.");
@@ -83,4 +82,3 @@ function loadFromLocalStorage() {
 window.onload = function () {
   loadFromLocalStorage();
 };
-
