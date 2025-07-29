@@ -57,8 +57,6 @@ function copyLastRow() {
   });
 }
 
-
-
 function getColorClass(number) {
   if (number <= 10) return 'yellow';
   if (number <= 20) return 'blue';
@@ -85,3 +83,4 @@ function loadFromLocalStorage() {
 window.onload = function () {
   loadFromLocalStorage();
 };
+
