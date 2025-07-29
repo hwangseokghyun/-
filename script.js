@@ -12,16 +12,13 @@ function generateLottoNumbers() {
 function displayLottoRow(numbers) {
   const row = document.createElement('div');
   row.className = 'row';
-
   numbers.forEach(num => {
     const ball = document.createElement('div');
-    ball.className = \`ball \${getColorClass(num)}\`;
+    ball.className = `ball ${getColorClass(num)}`;
     ball.textContent = num;
     row.appendChild(ball);
   });
-
-  const container = document.getElementById('lottoNumbers');
-  container.appendChild(row);
+  document.getElementById('lottoNumbers').appendChild(row);
 }
 
 function clearLottoNumbers() {
@@ -35,24 +32,10 @@ function copyLastRow() {
     alert("복사할 번호가 없습니다!");
     return;
   }
-
   const lastRow = rows[rows.length - 1];
-  const balls = lastRow.querySelectorAll('.ball');
-
-  if (balls.length === 0) {
-    alert("복사할 숫자가 없습니다! ('.ball' 클래스가 있는지 확인해주세요)");
-    return;
-  }
-
-  const numbers = Array.from(balls)
-    .map(ball => ball.textContent.trim())
-    .join(', ');
-
+  const numbers = Array.from(lastRow.children).map(ball => ball.textContent).join(', ');
   navigator.clipboard.writeText(numbers).then(() => {
-    alert(\`복사 완료! 🎉\n\${numbers}\`);
-  }).catch(err => {
-    console.error("복사 실패:", err);
-    alert("복사에 실패했습니다. 브라우저 권한을 확인하세요.");
+    alert(`복사 완료! 🎉\n${numbers}`);
   });
 }
 
