@@ -51,23 +51,23 @@ p {
   flex-wrap: wrap;
 }
 
-.main-btn {
-  background-color: #4a90e2;
+.main-btn.large {
+  background: linear-gradient(to right, #4a90e2, #0077ff);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
   text-align: center;
+  font-size: 28px;
+  padding: 24px 48px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
 }
 
-.main-btn:hover {
+.main-btn.large:hover {
   background-color: #357abd;
-}
-
-.large {
-  font-size: 20px;
-  padding: 18px 36px;
+  transform: scale(1.05);
 }
 
 .gray-btn {
